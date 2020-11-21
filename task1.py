@@ -1,6 +1,12 @@
 import pandas as pd
 import numpy as np
 import heapq
+import os
+import glob
+import matplotlib.pyplot as plt
+
+def get_all_sub_folders(folder_directory):
+    return [d for d in os.listdir(folder_directory) if os.path.isdir(os.path.join(folder_directory, d))]
 
 
 def main():
@@ -8,7 +14,7 @@ def main():
     heap = list()
     column_names = list(data.columns)
     # column_names.pop(0)
-
+    datadir = input("Enter the directory containing the data: ")
     k = int(input("Enter the k value: "))
     n = int(input("Enter the value of n: "))
 
@@ -74,8 +80,18 @@ def main():
         res, index = heapq.heappop(heap2)
         output.append(column_names[index])
 
-    print("-------------")
+    print("-------------------")
     print(output)
+    # dirs = get_all_sub_folders(datadir)
+    # for i in output:
+    #     for folder in dirs:
+    #         file_ = datadir + '\\' + folder +"\\"+ i
+    #         file_data = pd.read_csv(file_)
+    #         file_data = file_data.values.tolist()
+    #         plt.plot(file_data)
+    #         plt.show()
+    #         break
+    #     break
 
 
 
