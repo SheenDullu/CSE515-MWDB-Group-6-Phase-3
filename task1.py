@@ -25,7 +25,7 @@ def main():
     for i in range(n):
         num = input("Enter the object number {} : ".format(str(i+1)))
         seed_objects.append(num + ".csv")
-    m = int(input("Enter the number of dominent gestures: "))
+    m = int(input("Enter the number of dominant gestures: "))
 
 
 

@@ -1,7 +1,9 @@
-import pandas as pd
-import numpy as np
-import random
 import math
+import random
+
+import numpy as np
+import pandas as pd
+
 
 def generateRandomVector(length, min, max):
     arr = []
@@ -10,12 +12,13 @@ def generateRandomVector(length, min, max):
         arr.append(num)
     return arr
 
+
 def LSH(layers, hashes):
     data = pd.read_csv("similarity_matrix_pca.csv")
     column_names = list(data.columns)
     data_copy = data.drop([column_names[0]], axis=1)
     data_copy = data_copy.to_numpy()
-    middleIndex = math.ceil(len(data_copy)/2)
+    middleIndex = math.ceil(len(data_copy) / 2)
     LayerStr = []
     for l in range(layers):
         strs = ["" for x in range(len(data_copy))]
@@ -24,7 +27,6 @@ def LSH(layers, hashes):
             dotp = []
             for j in range(len(data_copy)):
                 dotp.append(np.dot(randomVector, data_copy[j]))
-
 
             dotpCopy = dotp.copy()
             dotpCopy.sort()
@@ -37,6 +39,7 @@ def LSH(layers, hashes):
         LayerStr.append(strs)
 
     return LayerStr
+
 
 def findGestures(bins, gesture, t):
     data = pd.read_csv("similarity_matrix_pca.csv")
@@ -67,11 +70,11 @@ def findGestures(bins, gesture, t):
             indexChange += 1
         else:
             binVal = bin[index]
-            indexChange2 = (indexChange-len(bin[index]))*-1
+            indexChange2 = (indexChange - len(bin[index])) * -1
 
             for bin in bins:
                 indices = [i for i, x in enumerate(bin) if x[:indexChange2] == binVal[:indexChange2]]
-                binCount += len(binVal) * (indexChange-len(bin[index]))
+                binCount += len(binVal) * (indexChange - len(bin[index]))
                 [binIndices.append(x) for x in indices if x not in binIndices]
 
             indexChange += 1
@@ -79,14 +82,14 @@ def findGestures(bins, gesture, t):
     binIndices.sort()
     distList = []
     for val in binIndices:
-        dist = np.linalg.norm(data_copy[index] - data_copy[val]) #This can be changed (Calculates similarity with L2 distance)
+        dist = np.linalg.norm(
+            data_copy[index] - data_copy[val])  # This can be changed (Calculates similarity with L2 distance)
         distList.append(dist)
 
     indexList = np.argsort(distList)[:t]
     resultList = [binIndices[i] for i in indexList]
-    fileNameList = [column_names[i+1] for i in resultList]
+    fileNameList = [column_names[i + 1] for i in resultList]
     return fileNameList, binCount
-
 
 
 def main():
@@ -98,12 +101,10 @@ def main():
     gesture = input("Enter a gesture file name: ")
     t = int(input("Enter how many similar gestures you want: "))
 
-    output, count = findGestures(bins, gesture, t)
-
-    print(output)
+    output, count = findGestures(bins, gesture + ".csv", t)
     print("Number of Bins Searched: " + str(count))
-
+    return output
 
 
 if __name__ == "__main__":
-    main()
+    print(main())
