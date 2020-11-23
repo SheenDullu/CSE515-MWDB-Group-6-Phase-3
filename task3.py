@@ -103,7 +103,7 @@ def main():
 
     output, count = findGestures(bins, gesture + ".csv", t)
     print("Number of Bins Searched: " + str(count))
-    return output
+    return output,t
 
 
 if __name__ == "__main__":
