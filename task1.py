@@ -28,7 +28,7 @@ def main():
     m = int(input("Enter the number of dominant gestures: "))
 
 
-
+    # dropping the first column
     data_copy = data.drop([column_names[0]],axis=1)
     data_copy = data_copy.to_numpy()
 
@@ -57,6 +57,7 @@ def main():
     v = v.reshape(-1,1)
 
     adjacency_matrix = adjacency_matrix/adjacency_matrix.sum(axis=0,keepdims=1)
+    v = v/v.sum(axis=0,keepdims=1)
     # print(adjacency_matrix)
     u = v.copy()
     # print(u.shape)
@@ -82,16 +83,16 @@ def main():
 
     print("-------------------")
     print(output)
-    # dirs = get_all_sub_folders(datadir)
-    # for i in output:
-    #     for folder in dirs:
-    #         file_ = datadir + '\\' + folder +"\\"+ i
-    #         file_data = pd.read_csv(file_)
-    #         file_data = file_data.values.tolist()
-    #         plt.plot(file_data)
-    #         plt.show()
-    #         break
-    #     break
+
+    dirs = get_all_sub_folders(datadir)
+    for i in output:
+        for folder in dirs:
+            file_ = datadir + '\\' + folder +"\\"+ i
+            file_data = pd.read_csv(file_,header=None).T
+            # file_data = file_data.values.tolist()
+            file_data.plot.line()
+            plt.title("" + folder + " component of " + i)
+            plt.show()
 
 
 

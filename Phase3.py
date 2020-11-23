@@ -9,6 +9,7 @@ def main():
         print("Task 2a: KNN classification")
         print("Task 2b: PPR classification")
         print("Task 3: Find similar gestures using LSH")
+        print("Task 4: Probabilistic relevant feedback")
         task = input("What Task do you want to perform: (enter 0 to exit)\n")
         # folder_directory = input("Input Directory path of the gesture folders:\n")
         if task == '1':
