@@ -26,7 +26,7 @@ def calc(comp,sensor,value):
     q=irrel*p_x
 
 
-    return np.log((p*(1-q))/(q*(1-p)))
+    return np.log(((p*(1-q))+0.5)/((q*(1-p))+1))
 
 def main(results,t):
     # file = input("Enter the similarity matrix you want to use:")
@@ -78,10 +78,10 @@ def main(results,t):
     quant_df['mean'] = quant_df.apply(lambda x: np.mean(x[2:]), axis=1)
     quant_df['std'] = quant_df.apply(lambda x: np.std(x[2:]), axis=1)
     quant_df = (quant_df[["Comp", "Sensor_id", "mean", "std"]])
-
-    quant_df=quant_df.fillna(0.1)
-    rel_df=rel_df.fillna(0.1)
-    irrel_df=irrel_df.fillna(0.1)
+    #
+    # quant_df=quant_df.fillna(0.1)
+    # rel_df=rel_df.fillna(0.1)
+    # irrel_df=irrel_df.fillna(0.1)
     prob_list=[]
 
     #Caclulate probability value
@@ -94,8 +94,8 @@ def main(results,t):
 
     print(sorted(prob_list,key= lambda x: x[1], reverse=True)[:10])
 
-results = [('3.csv', 1), ('9.csv', 1), ('269.csv', 0), ('1.csv', 1), ('568.csv', 0), ('2.csv', 1), ('249.csv', 0),
-           ('13.csv', 1), ('560.csv', 0), ('278.csv', 0)]
-t = 10
-main(results,t)
+# results = [('3.csv', 1), ('9.csv', 1), ('269.csv', 0), ('1.csv', 1), ('568.csv', 0), ('2.csv', 1), ('249.csv', 0),
+#            ('13.csv', 1), ('560.csv', 0), ('278.csv', 0)]
+# t = 10
+# main(results,t)
 
