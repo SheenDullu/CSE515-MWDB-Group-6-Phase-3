@@ -19,7 +19,7 @@ def store_directory(directory):
 
 
 def main():
-    file_ = input("Input the directory with gestures")
+    file_ = input("Input the directory with gestures: ")
     store_directory(file_)
     while True:
         print("########## Phase 3 ##########")
