@@ -19,9 +19,9 @@ def store_directory(directory):
 
 
 def main():
+    file_ = input("Input the directory with gestures")
+    store_directory(file_)
     while True:
-        file = input("Input the directory with gestures")
-        store_directory(file)
         print("########## Phase 3 ##########")
         print("Task 1: Personalized Pagerank")
         print("Task 2a: KNN classification")

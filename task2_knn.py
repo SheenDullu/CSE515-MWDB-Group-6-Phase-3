@@ -15,6 +15,11 @@ def getAVector(file):
 # def distance(pA, pB):
 #     return np.sum((pA - pB)**2)**0.5
 
+def read_directory():
+    with open("directory.txt", 'r') as f:
+        param = f.read()
+        f.close()
+    return param
 
 def distance(a, b, p=2):
     dim = len(a)
@@ -48,7 +53,7 @@ def knn(X, y, x_query, k=6):
 
 
 def main():
-    datadir = input("Enter the directory containing all the files: ")
+    datadir = read_directory()
     mapping = dict()
     mapping[1] = "vattene"
     mapping[2] = "combinato"
