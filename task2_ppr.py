@@ -17,6 +17,7 @@ def rank_for_class(adj, seed_objects, column_names, location):
 
     # normalizing adjaceny matrix across columns
     adj = adj / adj.sum(axis=0, keepdims=1)
+    v = v / v.sum(axis=0, keepdims=1)
 
     # initializing u matrix
     u = v.copy()

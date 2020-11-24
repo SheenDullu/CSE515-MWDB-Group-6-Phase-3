@@ -88,8 +88,8 @@ def main():
             file_data.plot.line()
             plt.title("" + folder + " component of " + i)
             plt.show()
-            break
-        break
+        #     break
+        # break
 
 
 if __name__ == "__main__":
