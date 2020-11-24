@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import scipy.stats
 
+import Phase3
+
 
 def find_target(comp,sensor,df):
     rel_target=df[(df["Comp"] ==comp) & (df["Sensor_id"]==sensor)]
@@ -30,7 +32,7 @@ def calc(comp,sensor,value):
 
 def main(results,t):
     # file = input("Enter the similarity matrix you want to use:")
-    datadir = pd.read_csv("similarity_matrix_pca_tf.csv")
+    datadir = Phase3.read_directory()
     global rel_df
     global irrel_df
     global quant_df
