@@ -28,6 +28,7 @@ def main():
             task = int(input("Enter 4 for Probabilistic relevance feedback\nEnter 5 for Classifier-based relevance "
                              "feedback\nEnter 0 to exit"))
             if task == 4:
+                task4.main()
                 print("Task 4 Probabilistic relevance feedback")
                 t4.main(feedback,t)
             if task == 5:
