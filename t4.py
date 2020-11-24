@@ -1,8 +1,10 @@
-import pandas as pd
-import numpy as np
-import scipy.stats
-import os
 import glob
+import os
+
+import numpy as np
+import pandas as pd
+import scipy.stats
+
 
 def find_target(comp,sensor,df):
     rel_target=df[(df["Comp"] ==comp) & (df["Sensor_id"]==sensor)]
@@ -27,8 +29,8 @@ def calc(comp,sensor,value):
     return np.log((p*(1-q))/(q*(1-p)))
 
 def main(results,t):
-
-    datadir=r"C:\Users\Vccha\MWDB\CSE515-MWDB-Group-6-Phase-3\test"
+    file = input("Enter the similarity matrix you want to use:")
+    datadir = pd.read_csv(file)
     global rel_df
     global irrel_df
     global quant_df

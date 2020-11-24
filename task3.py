@@ -14,7 +14,8 @@ def generateRandomVector(length, min, max):
 
 
 def LSH(layers, hashes):
-    data = pd.read_csv("similarity_matrix_pca.csv")
+    file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv(file)
     column_names = list(data.columns)
     data_copy = data.drop([column_names[0]], axis=1)
     data_copy = data_copy.to_numpy()
@@ -42,7 +43,8 @@ def LSH(layers, hashes):
 
 
 def findGestures(bins, gesture, t):
-    data = pd.read_csv("similarity_matrix_pca.csv")
+    file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv(file)
     column_names = list(data.columns)
     data_copy = data.drop([column_names[0]], axis=1)
     data_copy = data_copy.to_numpy()
