@@ -29,8 +29,8 @@ def calc(comp,sensor,value):
     return np.log((p*(1-q))/(q*(1-p)))
 
 def main(results,t):
-    file = input("Enter the similarity matrix you want to use:")
-    datadir = pd.read_csv(file)
+    # file = input("Enter the similarity matrix you want to use:")
+    datadir = pd.read_csv("similarity_matrix_pca_tf.csv")
     global rel_df
     global irrel_df
     global quant_df

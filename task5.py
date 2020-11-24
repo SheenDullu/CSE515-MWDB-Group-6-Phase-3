@@ -5,8 +5,8 @@ import pandas as pd
 
 
 def main(results,t):
-    file = input("Enter the similarity matrix you want to use:")
-    data = pd.read_csv(file)
+    # file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv("similarity_matrix_pca_tf.csv")
     heap = list()
     column_names = list(data.columns)
 
@@ -32,8 +32,11 @@ def main(results,t):
             index = column_names.index(seed[0])
             v[index] = 1
         v = v.reshape(-1,1)
+    print(v)
 
     adjacency_matrix = adjacency_matrix/adjacency_matrix.sum(axis=0,keepdims=1)
+
+    v = v / v.sum(axis=0, keepdims=1)
 
     u = v.copy()
 

@@ -11,8 +11,8 @@ def get_all_sub_folders(folder_directory):
 
 
 def main():
-    file = input("Enter the similarity matrix you want to use:")
-    data = pd.read_csv(file)
+    # file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv("similarity_matrix_pca_tf.csv")
     heap = list()
     column_names = list(data.columns)
     # column_names.pop(0)
@@ -88,6 +88,8 @@ def main():
             file_data.plot.line()
             plt.title("" + folder + " component of " + i)
             plt.show()
+            break
+        break
 
 
 if __name__ == "__main__":

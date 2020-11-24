@@ -1,6 +1,6 @@
 import heapq
 import os
-
+import re
 import numpy as np
 import pandas as pd
 
@@ -34,12 +34,12 @@ def rank_for_class(adj, seed_objects, column_names, location):
 
 
 def main():
-    file = input("Enter the similarity matrix you want to use:")
-    data = pd.read_csv(file)
+    # file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv("similarity_matrix_pca_tf.csv")
     datadir = input("File path for directory: ")
     all_files_objects = os.listdir(os.path.join(datadir, "W"))
-    all_files_objects.sort(key=lambda x: int(x.split(".")[0]))
-    all_label_names = pd.read_csv("all_labels.csv", header=None)
+    all_files_objects.sort(key=lambda var: [int(x) if x.isdigit() else x for x in re.split('(\d+)', var)])
+    all_label_names = pd.read_csv("labels.csv", header=None)
     all_label_names.columns = ["index", "name", "labels"]
     mapping = dict()
     mapping[1] = "vattene"

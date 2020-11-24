@@ -1,5 +1,5 @@
 import os
-
+import re
 import numpy as np
 import pandas as pd
 
@@ -54,16 +54,21 @@ def main():
     mapping[2] = "combinato"
     mapping[3] = "daccordo"
 
-    file = input("Enter the latent feature file: ")
-    old_data = pd.read_csv(file, header=None)
-    training_names = ["1.csv", "2.csv", "3.csv", "4.csv", "5.csv", "6.csv", "7.csv", "8.csv", "9.csv", "10.csv",
-                      "249.csv", "250.csv", "251.csv", "252.csv", "253.csv", "254.csv", "255.csv", "256.csv", "257.csv",
-                      "258.csv", "580.csv", "581.csv", "582.csv", "583.csv", "584.csv", "585.csv", "586.csv", "587.csv",
-                      "588.csv", "589.csv"]
+    # file = input("Enter the latent feature file: ")
+    old_data = pd.read_csv("latent_features_pca_tf.txt", header=None)
+    training_names = list()
+    data_ = pd.read_csv("all_labels.csv",header=None)
+    for i in data_[0].values.tolist():
+        training_names.append(str(i) + ".csv")
+    # training_names = ["1.csv", "2.csv", "3.csv", "4.csv", "5.csv", "6.csv", "7.csv", "8.csv", "9.csv", "10.csv",
+    #                   "249.csv", "250.csv", "251.csv", "252.csv", "253.csv", "254.csv", "255.csv", "256.csv", "257.csv",
+    #                   "258.csv", "580.csv", "581.csv", "582.csv", "583.csv", "584.csv", "585.csv", "586.csv", "587.csv",
+    #                   "588.csv", "589.csv"]
     # x = old_data.to_numpy()
     all_files_objects = os.listdir(os.path.join(datadir, "W"))
-    all_files_objects.sort(key=lambda x: int(x.split(".")[0]))
-    all_label_names = pd.read_csv("all_labels.csv", header=None)
+    # all_files_objects.sort(key=lambda x: int(x.split(".")[0]))
+    all_files_objects.sort(key=lambda var: [int(x) if x.isdigit() else x for x in re.split('(\d+)', var)])
+    all_label_names = pd.read_csv("labels.csv", header=None)
     all_label_names.columns = ["index", "name", "labels"]
     x_train = list()
     y = list()
