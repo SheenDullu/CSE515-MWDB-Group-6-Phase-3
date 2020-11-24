@@ -1,5 +1,6 @@
 import task3
 import task5
+import t4
 
 def print_and_get_feedback(results):
     print("The results from Multi-dimensional nearest neighbor search task are:")
@@ -28,6 +29,7 @@ def main():
                              "feedback\nEnter 0 to exit"))
             if task == 4:
                 print("Task 4 Probabilistic relevance feedback")
+                t4.main(feedback,t)
             if task == 5:
                 task5.main(feedback,t)
                 print("Task 5 Classifier-based relevance feedback")

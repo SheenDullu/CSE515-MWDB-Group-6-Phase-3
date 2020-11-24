@@ -2,6 +2,7 @@ import task1
 import task2_knn
 import task3
 import task4
+import task2_ppr
 def main():
     while True:
         print("########## Phase 3 ##########")
