@@ -1,7 +1,10 @@
 import task1
 import task2_knn
+import task2_ppr
 import task3
 import task4
+
+
 def main():
     while True:
         print("########## Phase 3 ##########")
@@ -31,7 +34,7 @@ def main():
         elif task == '4':
             print("########## Task 4 ##########")
             task4.main()
-            print("########## Task 3 Completed ##########\n")
+            print("########## Task 4 Completed ##########\n")
         elif task == '0':
             exit()
 

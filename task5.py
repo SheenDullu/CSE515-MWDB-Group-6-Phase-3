@@ -60,8 +60,5 @@ def main(results,t):
     print(output)
 
 
-
-
-
 if __name__ == "__main__":
     main()
