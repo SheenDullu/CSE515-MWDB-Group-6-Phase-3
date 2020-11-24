@@ -49,8 +49,10 @@ def findGestures(bins, gesture, t):
     index = column_names.index(gesture) - 1
     binCount = 0
     binIndices = []
+    overallCount = 0
     for bin in bins:
         indices = [i for i, x in enumerate(bin) if x == bin[index]]
+        overallCount += len(indices)
         binCount += 1
         [binIndices.append(x) for x in indices if x not in binIndices]
 
@@ -65,6 +67,7 @@ def findGestures(bins, gesture, t):
 
             for bin in bins:
                 indices = [i for i, x in enumerate(bin) if x == binVal]
+                overallCount += len(indices)
                 binCount += 1
                 [binIndices.append(x) for x in indices if x not in binIndices]
             indexChange += 1
@@ -74,6 +77,7 @@ def findGestures(bins, gesture, t):
 
             for bin in bins:
                 indices = [i for i, x in enumerate(bin) if x[:indexChange2] == binVal[:indexChange2]]
+                overallCount += len(indices)
                 binCount += len(binVal) * (indexChange - len(bin[index]))
                 [binIndices.append(x) for x in indices if x not in binIndices]
 
@@ -89,7 +93,7 @@ def findGestures(bins, gesture, t):
     indexList = np.argsort(distList)[:t]
     resultList = [binIndices[i] for i in indexList]
     fileNameList = [column_names[i + 1] for i in resultList]
-    return fileNameList, binCount
+    return fileNameList, binCount, overallCount, len(distList)
 
 
 def main():
@@ -101,8 +105,10 @@ def main():
     gesture = input("Enter a gesture file name: ")
     t = int(input("Enter how many similar gestures you want: "))
 
-    output, count = findGestures(bins, gesture + ".csv", t)
+    output, count, overall, unique = findGestures(bins, gesture + ".csv", t)
     print("Number of Bins Searched: " + str(count))
+    print("Number of Overall gestures considered: " + str(overall))
+    print("Number of unique gestures: " + str(unique))
     return output,t
 
 
