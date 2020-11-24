@@ -32,7 +32,6 @@ def main(results,t):
             index = column_names.index(seed[0])
             v[index] = 1
         v = v.reshape(-1,1)
-    print(v)
 
     adjacency_matrix = adjacency_matrix/adjacency_matrix.sum(axis=0,keepdims=1)
 
