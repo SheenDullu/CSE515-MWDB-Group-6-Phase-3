@@ -49,8 +49,10 @@ def findGestures(bins, gesture, t):
     index = column_names.index(gesture) - 1
     binCount = 0
     binIndices = []
+    binValues = []
     overallCount = 0
     for bin in bins:
+        binValues.append(bin[index])
         indices = [i for i, x in enumerate(bin) if x == bin[index]]
         overallCount += len(indices)
         binCount += 1
@@ -59,26 +61,26 @@ def findGestures(bins, gesture, t):
     indexChange = 1
     while len(binIndices) < t:
         if indexChange <= len(bin[index]):
-            binVal = bin[index]
-            if binVal[len(binVal) - indexChange] == "0":
-                binVal = binVal.replace(binVal[len(binVal) - indexChange], '1')
-            else:
-                binVal = binVal.replace(binVal[len(binVal) - indexChange], '0')
+            for binIndex in range(len(bins)):
+                binVal = binValues[binIndex]
+                if binVal[len(binVal) - indexChange] == "0":
+                    binVal = binVal.replace(binVal[len(binVal) - indexChange], '1')
+                else:
+                    binVal = binVal.replace(binVal[len(binVal) - indexChange], '0')
 
-            for bin in bins:
-                indices = [i for i, x in enumerate(bin) if x == binVal]
+                indices = [i for i, x in enumerate(bins[binIndex]) if x == binVal]
                 overallCount += len(indices)
                 binCount += 1
                 [binIndices.append(x) for x in indices if x not in binIndices]
             indexChange += 1
         else:
-            binVal = bin[index]
-            indexChange2 = (indexChange - len(bin[index])) * -1
+            for binIndex in range(len(bins)):
+                binVal = binValues[binIndex]
+                indexChange2 = (indexChange - len(binValues[binIndex])) * -1
 
-            for bin in bins:
-                indices = [i for i, x in enumerate(bin) if x[:indexChange2] == binVal[:indexChange2]]
+                indices = [i for i, x in enumerate(bins[binIndex]) if x[:indexChange2] == binVal[:indexChange2]]
                 overallCount += len(indices)
-                binCount += len(binVal) * (indexChange - len(bin[index]))
+                binCount += len(binVal) * (indexChange - len(binValues[binIndex]))
                 [binIndices.append(x) for x in indices if x not in binIndices]
 
             indexChange += 1
