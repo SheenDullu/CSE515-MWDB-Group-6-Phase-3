@@ -1,11 +1,12 @@
+import heapq
+
 import numpy as np
 import pandas as pd
-import heapq
-import os
 
 
 def main(results,t):
-    data = pd.read_csv("similarity_matrix_pca.csv")
+    file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv(file)
     heap = list()
     column_names = list(data.columns)
 

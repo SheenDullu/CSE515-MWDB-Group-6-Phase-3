@@ -1,6 +1,7 @@
+import t4
 import task3
 import task5
-import t4
+
 
 def print_and_get_feedback(results):
     print("The results from Multi-dimensional nearest neighbor search task are:")
@@ -22,17 +23,16 @@ def print_and_get_feedback(results):
 def main():
     while True:
         print("Task 3 Multi-dimensional index structures and nearest neighbor search task")
-        results,t = task3.main()
+        results, t = task3.main()
         feedback = print_and_get_feedback(results)
         while True:
             task = int(input("Enter 4 for Probabilistic relevance feedback\nEnter 5 for Classifier-based relevance "
                              "feedback\nEnter 0 to exit"))
             if task == 4:
-                task4.main()
                 print("Task 4 Probabilistic relevance feedback")
-                t4.main(feedback,t)
+                t4.main(feedback, t)
             if task == 5:
-                task5.main(feedback,t)
+                task5.main(feedback, t)
                 print("Task 5 Classifier-based relevance feedback")
             if task == 0:
                 break

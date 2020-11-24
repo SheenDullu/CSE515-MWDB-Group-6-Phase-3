@@ -14,7 +14,8 @@ def generateRandomVector(length, min, max):
 
 
 def LSH(layers, hashes):
-    data = pd.read_csv("similarity_matrix_pca.csv")
+    file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv(file)
     column_names = list(data.columns)
     data_copy = data.drop([column_names[0]], axis=1)
     data_copy = data_copy.to_numpy()
@@ -42,39 +43,46 @@ def LSH(layers, hashes):
 
 
 def findGestures(bins, gesture, t):
-    data = pd.read_csv("similarity_matrix_pca.csv")
+    file = input("Enter the similarity matrix you want to use:")
+    data = pd.read_csv(file)
     column_names = list(data.columns)
     data_copy = data.drop([column_names[0]], axis=1)
     data_copy = data_copy.to_numpy()
     index = column_names.index(gesture) - 1
     binCount = 0
     binIndices = []
+    binValues = []
+    overallCount = 0
     for bin in bins:
+        binValues.append(bin[index])
         indices = [i for i, x in enumerate(bin) if x == bin[index]]
+        overallCount += len(indices)
         binCount += 1
         [binIndices.append(x) for x in indices if x not in binIndices]
 
     indexChange = 1
     while len(binIndices) < t:
         if indexChange <= len(bin[index]):
-            binVal = bin[index]
-            if binVal[len(binVal) - indexChange] == "0":
-                binVal = binVal.replace(binVal[len(binVal) - indexChange], '1')
-            else:
-                binVal = binVal.replace(binVal[len(binVal) - indexChange], '0')
+            for binIndex in range(len(bins)):
+                binVal = binValues[binIndex]
+                if binVal[len(binVal) - indexChange] == "0":
+                    binVal = binVal.replace(binVal[len(binVal) - indexChange], '1')
+                else:
+                    binVal = binVal.replace(binVal[len(binVal) - indexChange], '0')
 
-            for bin in bins:
-                indices = [i for i, x in enumerate(bin) if x == binVal]
+                indices = [i for i, x in enumerate(bins[binIndex]) if x == binVal]
+                overallCount += len(indices)
                 binCount += 1
                 [binIndices.append(x) for x in indices if x not in binIndices]
             indexChange += 1
         else:
-            binVal = bin[index]
-            indexChange2 = (indexChange - len(bin[index])) * -1
+            for binIndex in range(len(bins)):
+                binVal = binValues[binIndex]
+                indexChange2 = (indexChange - len(binValues[binIndex])) * -1
 
-            for bin in bins:
-                indices = [i for i, x in enumerate(bin) if x[:indexChange2] == binVal[:indexChange2]]
-                binCount += len(binVal) * (indexChange - len(bin[index]))
+                indices = [i for i, x in enumerate(bins[binIndex]) if x[:indexChange2] == binVal[:indexChange2]]
+                overallCount += len(indices)
+                binCount += len(binVal) * (indexChange - len(binValues[binIndex]))
                 [binIndices.append(x) for x in indices if x not in binIndices]
 
             indexChange += 1
@@ -89,7 +97,7 @@ def findGestures(bins, gesture, t):
     indexList = np.argsort(distList)[:t]
     resultList = [binIndices[i] for i in indexList]
     fileNameList = [column_names[i + 1] for i in resultList]
-    return fileNameList, binCount
+    return fileNameList, binCount, overallCount, len(distList)
 
 
 def main():
@@ -101,8 +109,10 @@ def main():
     gesture = input("Enter a gesture file name: ")
     t = int(input("Enter how many similar gestures you want: "))
 
-    output, count = findGestures(bins, gesture + ".csv", t)
+    output, count, overall, unique = findGestures(bins, gesture + ".csv", t)
     print("Number of Bins Searched: " + str(count))
+    print("Number of Overall gestures considered: " + str(overall))
+    print("Number of unique gestures: " + str(unique))
     return output,t
 
 
