@@ -1,6 +1,7 @@
 import t4
 import task3
 import task5
+import task4_testing
 
 
 def print_and_get_feedback(results):
@@ -30,7 +31,7 @@ def main():
                              "feedback\nEnter 0 to exit"))
             if task == 4:
                 print("Task 4 Probabilistic relevance feedback")
-                t4.main(feedback, t)
+                task4_testing.main(feedback, t)
             if task == 5:
                 task5.main(feedback, t)
                 print("Task 5 Classifier-based relevance feedback")
