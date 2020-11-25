@@ -1,6 +1,7 @@
 import t4
 import task3
 import task5
+import task4_testing
 
 
 def print_and_get_feedback(results):
