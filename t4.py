@@ -114,7 +114,7 @@ def main(results,t):
     for doc in sorted(prob_list,key= lambda x: x[1], reverse=True)[:t]:
         print(doc[0].split(".")[0]+".csv")
 
-results = [('6.csv', 1), ('561_7.csv', 0), ('23_0.csv', 1), ('265_6.csv', 0), ('14_5.csv', 1), ('274_1.csv', 0), ('31_6.csv', 1), ('570_2.csv', 0), ('257_0.csv', 0), ('578_8.csv', 0)]
-t = 10
-main(results,t)
+# results = [('6.csv', 1), ('561_7.csv', 0), ('23_0.csv', 1), ('265_6.csv', 0), ('14_5.csv', 1), ('274_1.csv', 0), ('31_6.csv', 1), ('570_2.csv', 0), ('257_0.csv', 0), ('578_8.csv', 0)]
+# t = 10
+# main(results,t)
 
