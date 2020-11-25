@@ -4,7 +4,7 @@ import os
 import numpy as np
 import pandas as pd
 import scipy.stats
-
+import math
 import Phase3
 
 
@@ -27,10 +27,24 @@ def calc(comp,sensor,value):
     p=rel*p_x
     q=irrel*p_x
 
+    multiplier=1
 
-    return np.log(((p*(1-q))+0.5)/((q*(1-p))+1))
+    important_sensors = set([5, 6, 7, 8, 9, 10, 11, 12])
+    important_comp=set(["X","Y"])
+    if sensor in important_sensors:
+        multiplier*=4
+    if comp in important_comp:
+        multiplier*=4
+    try:
+        result= np.log(((p*(1-q))+0.5)/((q*(1-p))+1))
+    except RuntimeWarning:
+        result= 0
+
+    return result*multiplier
+
 
 def main(results,t):
+
     # file = input("Enter the similarity matrix you want to use:")
     datadir = Phase3.read_directory()
     global rel_df
@@ -56,7 +70,7 @@ def main(results,t):
             else:
                 irrel_df=irrel_df.merge(quant_wrd,how='inner',left_on=["Comp","Sensor_id"],right_on=["Comp","Sensor_id"])
 
-
+    print("Relevant and Irrelevant document distributions noted")
     rel_df['mean']=rel_df.apply(lambda x: np.mean(x[2:]),axis=1)
     irrel_df['mean']=irrel_df.apply(lambda x: np.mean(x[2:]),axis=1)
     rel_df['std']=rel_df.apply(lambda x: np.std(x[2:]),axis=1)
@@ -77,13 +91,15 @@ def main(results,t):
         else:
             quant_df=quant_df.merge(quant_wrd,how='inner',left_on=["Comp","Sensor_id"],right_on=["Comp","Sensor_id"])
 
+    print("dataset distributions noted")
+
     quant_df['mean'] = quant_df.apply(lambda x: np.mean(x[2:]), axis=1)
     quant_df['std'] = quant_df.apply(lambda x: np.std(x[2:]), axis=1)
     quant_df = (quant_df[["Comp", "Sensor_id", "mean", "std"]])
-    #
-    # quant_df=quant_df.fillna(0.1)
-    # rel_df=rel_df.fillna(0.1)
-    # irrel_df=irrel_df.fillna(0.1)
+
+    quant_df=quant_df.fillna(0.1)
+    rel_df=rel_df.fillna(0.1)
+    irrel_df=irrel_df.fillna(0.1)
     prob_list=[]
 
     #Caclulate probability value
@@ -94,10 +110,11 @@ def main(results,t):
         sigma_prob=quant_wrd["prob"].sum()
         prob_list.append([file.split("\\")[-1],(sigma_prob)])
 
-    print(sorted(prob_list,key= lambda x: x[1], reverse=True)[:10])
+    print("probabilities calculated")
+    for doc in sorted(prob_list,key= lambda x: x[1], reverse=True)[:t]:
+        print(doc[0].split(".")[0]+".csv")
 
-# results = [('3.csv', 1), ('9.csv', 1), ('269.csv', 0), ('1.csv', 1), ('568.csv', 0), ('2.csv', 1), ('249.csv', 0),
-#            ('13.csv', 1), ('560.csv', 0), ('278.csv', 0)]
-# t = 10
-# main(results,t)
+results = [('6.csv', 1), ('561_7.csv', 0), ('23_0.csv', 1), ('265_6.csv', 0), ('14_5.csv', 1), ('274_1.csv', 0), ('31_6.csv', 1), ('570_2.csv', 0), ('257_0.csv', 0), ('578_8.csv', 0)]
+t = 10
+main(results,t)
 
