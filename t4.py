@@ -16,7 +16,7 @@ def find_target(comp,sensor,df):
 
     return scipy.stats.norm(mean, std)
 
-def calc(comp,sensor,value):
+def calc(file,comp,sensor,value):
 
     #Find pdf value wrt to relevant irrelevant and entire dataset
     rel=find_target(comp,sensor,rel_df).pdf(value)
@@ -40,9 +40,11 @@ def calc(comp,sensor,value):
     if (l<=0):
         result=0
     else:
-        result= np.log(l)
+        result= np.log(l)*multiplier
 
-    return result*multiplier
+    with open("scores.txt","a") as f:
+        f.write(file.split("\\")[-1].split(".")[0]+".csv,"+str(comp)+","+str(sensor)+","+str(result)+"\n")
+    return result
 
 
 def main(results,t):
@@ -108,7 +110,7 @@ def main(results,t):
     for file in file_list:
         wrd=pd.read_csv(file,header=None,names=["Comp","Sensor_id","Symbolic_Rep","Time","Average_Amp","Std","Average_Quantization"])
         quant_wrd = (wrd[["Comp", "Sensor_id", "Average_Quantization"]].groupby(["Comp", "Sensor_id"], as_index=False).mean())
-        quant_wrd["prob"]=quant_wrd.apply(lambda x: calc(x[0],x[1],x[2]) ,axis=1)
+        quant_wrd["prob"]=quant_wrd.apply(lambda x: calc(file,x[0],x[1],x[2]) ,axis=1)
         sigma_prob=quant_wrd["prob"].sum()
         prob_list.append([file.split("\\")[-1],(sigma_prob)])
 
@@ -116,7 +118,5 @@ def main(results,t):
     for doc in sorted(prob_list,key= lambda x: x[1], reverse=True)[:t]:
         print(doc[0].split(".")[0]+".csv")
 
-# results = [('6.csv', 1), ('561_7.csv', 0), ('23_0.csv', 1), ('265_6.csv', 0), ('14_5.csv', 1), ('274_1.csv', 0), ('31_6.csv', 1), ('570_2.csv', 0), ('257_0.csv', 0), ('578_8.csv', 0)]
-# t = 10
-# main(results,t)
+
 
