@@ -42,6 +42,8 @@ def main(outputs,t):
     all_vectors = getAllVectors(directory,"tf")
     cap_N = 0
     cap_R = 0
+    word_file = open('task4_effect.txt', mode='w')
+    word_writer = csv.writer(word_file, delimiter=',')
     # outputs = [("5.csv",1),("10.csv",1),("249.csv",0),("579.csv",0),("3.csv",1),("251.csv",0)]
     for item in outputs:
         if item[1] == 1:
@@ -49,7 +51,7 @@ def main(outputs,t):
         cap_N += 1
     sim_value_all_objects = list()
     condition = True
-    for idx,i in enumerate(all_vectors.keys()):
+    for i in all_vectors.keys():
         final_sim_value = 0
         for j in range(len(all_vectors["1"])):
             small_r = 0
@@ -72,7 +74,7 @@ def main(outputs,t):
             sim_value = d * math.log((p_i*(1-u_i))/(u_i*(1-p_i)))
             final_sim_value += sim_value
             if condition:
-                csv.writerow([all_words[idx],effect)
+                word_writer.writerow([all_words[j],effect])
         condition = False
         heapq.heappush(sim_value_all_objects,(-final_sim_value,str(i)+".csv"))
     

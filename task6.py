@@ -32,6 +32,7 @@ def main():
             if task == 4:
                 print("Task 4 Probabilistic relevance feedback")
                 t4.main(feedback, t)
+                # task4_testing.main(feedback, t)
             if task == 5:
                 task5.main(feedback, t)
                 print("Task 5 Classifier-based relevance feedback")
