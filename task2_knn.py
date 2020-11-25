@@ -60,7 +60,7 @@ def main():
     mapping[3] = "daccordo"
 
     # file = input("Enter the latent feature file: ")
-    old_data = pd.read_csv("latent_features_pca_tf.txt", header=None)
+    old_data = pd.read_csv("latent_features_pca_task1.txt", header=None)
     training_names = list()
     data_ = pd.read_csv("all_labels.csv",header=None)
     for i in data_[0].values.tolist():
@@ -91,10 +91,24 @@ def main():
     predictions = knn(x_train, y_train, x_test)
     print("" + query_object + " belongs to '" + mapping[predictions] + "' class")
 
-    # testing_names = ["11.csv","12.csv","13.csv","14.csv","15.csv","16.csv","17.csv","18.csv","19.csv","20.csv","21.csv","22.csv","23.csv","24.csv","25.csv","26.csv","27.csv","28.csv","29.csv","30.csv","31.csv","259.csv","260.csv","261.csv","262.csv","263.csv","264.csv","265.csv","266.csv","267.csv","268.csv","269.csv","270.csv","271.csv","272.csv","273.csv","274.csv","275.csv","276.csv","277.csv","278.csv","279.csv","559.csv","560.csv","561.csv","562.csv","563.csv","564.csv","565.csv","566.csv","567.csv","568.csv","569.csv","570.csv","571.csv","572.csv","573.csv","574.csv","575.csv","576.csv","577.csv","578.csv","579.csv"]
+    ################################################## Testing ##############################################
+
+    # not_testing_names = some_data = pd.read_csv("all_labels.csv",header=None)
+    # not_testing_names = not_testing_names[0].values.tolist()
+    # not_testing_names = [str(i)+".csv" for i in not_testing_names]
+
+    # testing_names = some_data = pd.read_csv("labels.csv",header=None)
+    # testing_names = testing_names[0].values.tolist()
+
+    # final_testing_name = list()
+    # for i in testing_names:
+    #     if i in not_testing_names:
+    #         continue
+    #     final_testing_name.append(i)
+
     # x_testing = list()
     # y_testing = list()
-    # for i,j in enumerate(testing_names):
+    # for i,j in enumerate(final_testing_name):
     #     idx = all_files_objects.index(j)
     #     x_testing.append(old_data.iloc[idx].values.tolist())
     #     y_testing.append(all_label_names["labels"].iloc[idx])

@@ -5,6 +5,7 @@ import task3
 import heapq
 import re
 import math
+import csv
 
 def read_directory():
     with open("directory.txt", 'r') as f:
@@ -12,6 +13,11 @@ def read_directory():
         f.close()
     return param
 
+def getAllUniqueWords(directory):
+    filename = directory + r'\header.txt'
+    file = open(filename, 'r')
+    s = file.read()
+    return s.split(',')
 
 def getAllVectors(directory, model):
     vectors = dict()
@@ -30,7 +36,7 @@ def getAllVectors(directory, model):
 def main(outputs,t):
     # outputs,t = task3.main()
     directory = read_directory()
-
+    all_words = getAllUniqueWords(directory)
 
 
     all_vectors = getAllVectors(directory,"tf")
@@ -42,7 +48,8 @@ def main(outputs,t):
             cap_R += 1
         cap_N += 1
     sim_value_all_objects = list()
-    for i in all_vectors.keys():
+    condition = True
+    for idx,i in enumerate(all_vectors.keys()):
         final_sim_value = 0
         for j in range(len(all_vectors["1"])):
             small_r = 0
@@ -61,8 +68,12 @@ def main(outputs,t):
             
             p_i = (small_r + 0.5)/(cap_R + 1)
             u_i = (small_non_rel + 0.5)/(cap_N - cap_R + 1)
+            effect = math.log((p_i*(1-u_i))/(u_i*(1-p_i)))
             sim_value = d * math.log((p_i*(1-u_i))/(u_i*(1-p_i)))
             final_sim_value += sim_value
+            if condition:
+                csv.writerow([all_words[idx],effect)
+        condition = False
         heapq.heappush(sim_value_all_objects,(-final_sim_value,str(i)+".csv"))
     
     output = list()
