@@ -36,7 +36,6 @@ def main(outputs,t):
     all_vectors = getAllVectors(directory,"tf")
     cap_N = 0
     cap_R = 0
-    t = 6
     # outputs = [("5.csv",1),("10.csv",1),("249.csv",0),("579.csv",0),("3.csv",1),("251.csv",0)]
     for item in outputs:
         if item[1] == 1:
@@ -67,6 +66,7 @@ def main(outputs,t):
         heapq.heappush(sim_value_all_objects,(-final_sim_value,str(i)+".csv"))
     
     output = list()
+
     for i in range(t):
         a,b = heapq.heappop(sim_value_all_objects)
         output.append(b)
