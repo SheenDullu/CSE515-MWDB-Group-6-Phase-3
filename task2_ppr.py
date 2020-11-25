@@ -4,7 +4,12 @@ import re
 import numpy as np
 import pandas as pd
 
-
+def read_directory():
+    with open("directory.txt", 'r') as f:
+        param = f.read()
+        f.close()
+    return param
+    
 def rank_for_class(adj, seed_objects, column_names, location):
     beta = 0.7
 
@@ -17,6 +22,7 @@ def rank_for_class(adj, seed_objects, column_names, location):
 
     # normalizing adjaceny matrix across columns
     adj = adj / adj.sum(axis=0, keepdims=1)
+    v = v / v.sum(axis=0, keepdims=1)
 
     # initializing u matrix
     u = v.copy()
@@ -36,7 +42,7 @@ def rank_for_class(adj, seed_objects, column_names, location):
 def main():
     # file = input("Enter the similarity matrix you want to use:")
     data = pd.read_csv("similarity_matrix_pca_tf.csv")
-    datadir = input("File path for directory: ")
+    datadir = read_directory()
     all_files_objects = os.listdir(os.path.join(datadir, "W"))
     all_files_objects.sort(key=lambda var: [int(x) if x.isdigit() else x for x in re.split('(\d+)', var)])
     all_label_names = pd.read_csv("labels.csv", header=None)

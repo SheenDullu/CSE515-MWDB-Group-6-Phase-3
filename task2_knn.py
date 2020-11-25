@@ -15,6 +15,11 @@ def getAVector(file):
 # def distance(pA, pB):
 #     return np.sum((pA - pB)**2)**0.5
 
+def read_directory():
+    with open("directory.txt", 'r') as f:
+        param = f.read()
+        f.close()
+    return param
 
 def distance(a, b, p=2):
     dim = len(a)
@@ -48,7 +53,7 @@ def knn(X, y, x_query, k=6):
 
 
 def main():
-    datadir = input("Enter the directory containing all the files: ")
+    datadir = read_directory()
     mapping = dict()
     mapping[1] = "vattene"
     mapping[2] = "combinato"
@@ -84,7 +89,7 @@ def main():
     query_object = query_object + ".csv"
     x_test = old_data.iloc[all_files_objects.index(query_object)].to_numpy()
     predictions = knn(x_train, y_train, x_test)
-    print(mapping[predictions])
+    print("" + query_object + " belongs to '" + mapping[predictions] + "' class")
 
     # testing_names = ["11.csv","12.csv","13.csv","14.csv","15.csv","16.csv","17.csv","18.csv","19.csv","20.csv","21.csv","22.csv","23.csv","24.csv","25.csv","26.csv","27.csv","28.csv","29.csv","30.csv","31.csv","259.csv","260.csv","261.csv","262.csv","263.csv","264.csv","265.csv","266.csv","267.csv","268.csv","269.csv","270.csv","271.csv","272.csv","273.csv","274.csv","275.csv","276.csv","277.csv","278.csv","279.csv","559.csv","560.csv","561.csv","562.csv","563.csv","564.csv","565.csv","566.csv","567.csv","568.csv","569.csv","570.csv","571.csv","572.csv","573.csv","574.csv","575.csv","576.csv","577.csv","578.csv","579.csv"]
     # x_testing = list()

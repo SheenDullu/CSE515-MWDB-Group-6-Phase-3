@@ -5,6 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+def read_directory():
+    with open("directory.txt", 'r') as f:
+        param = f.read()
+        f.close()
+    return param
 
 def get_all_sub_folders(folder_directory):
     return [d for d in os.listdir(folder_directory) if os.path.isdir(os.path.join(folder_directory, d))]
@@ -16,7 +21,7 @@ def main():
     heap = list()
     column_names = list(data.columns)
     # column_names.pop(0)
-    datadir = input("Enter the directory containing the data: ")
+    datadir = read_directory()
     k = int(input("Enter the k value: "))
     n = int(input("Enter the value of n: "))
 
@@ -88,8 +93,8 @@ def main():
             file_data.plot.line()
             plt.title("" + folder + " component of " + i)
             plt.show()
-            break
-        break
+        #     break
+        # break
 
 
 if __name__ == "__main__":
