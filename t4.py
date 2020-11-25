@@ -35,10 +35,12 @@ def calc(comp,sensor,value):
         multiplier*=4
     if comp in important_comp:
         multiplier*=4
-    try:
-        result= np.log(((p*(1-q))+0.5)/((q*(1-p))+1))
-    except RuntimeWarning:
-        result= 0
+
+    l=((p*(1-q))+0.5)/((q*(1-p))+1)
+    if (l<=0):
+        result=0
+    else:
+        result= np.log(l)
 
     return result*multiplier
 
