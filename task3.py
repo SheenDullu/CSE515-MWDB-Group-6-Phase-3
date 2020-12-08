@@ -113,7 +113,7 @@ def main():
     print("Number of Bins Searched: " + str(count))
     print("Number of Overall gestures considered: " + str(overall))
     print("Number of unique gestures: " + str(unique))
-    return output,t
+    return output, t
 
 
 if __name__ == "__main__":

@@ -1,7 +1,6 @@
 import t4
 import task3
 import task5
-import task4_testing
 
 
 def print_and_get_feedback(results):
@@ -34,8 +33,9 @@ def main():
                 t4.main(feedback, t)
                 # task4_testing.main(feedback, t)
             if task == 5:
-                task5.main(feedback, t)
                 print("Task 5 Classifier-based relevance feedback")
+                task5.main(feedback, t)
+                print("Done")
             if task == 0:
                 break
         v = int(input("Enter 1 to rewrite the layers and hashes\nEnter 0 to exit"))

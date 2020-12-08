@@ -35,11 +35,11 @@ def main():
             task1.main()
             print("########## Task 1 Completed ##########\n")
         elif task == '2a':
-            print("########## Task 2 ##########")
+            print("########## Task 2a ##########")
             task2_knn.main()
             print("########## Task 2a Completed ##########\n")
         elif task == '2b':
-            print("########## Task 2 ##########")
+            print("########## Task 2b ##########")
             task2_ppr.main()
             print("########## Task 2b Completed ##########\n")
         elif task == '3':
